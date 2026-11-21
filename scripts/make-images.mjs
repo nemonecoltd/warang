@@ -4,6 +4,8 @@
 import sharp from "sharp";
 import { mkdirSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { parse } from "node:path";
+import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
 
 const SRC = "public/images/src";
 const OUT = "public/images/gen";
@@ -39,12 +41,14 @@ for (const file of readdirSync(SRC).filter((f) => /\.(jpe?g|png)$/i.test(f))) {
   const { name } = parse(file);
   const meta = await sharp(`${SRC}/${file}`).rotate().metadata();
   const [w, h] = [meta.width, meta.height];
+  // 원본 내용의 해시 — 사진을 바꾸면 주소(?v=)도 바뀌어 하루 캐시에 남은 옛 이미지가 보이지 않는다
+  const v = createHash("md5").update(readFileSync(`${SRC}/${file}`)).digest("hex").slice(0, 8);
   const cfg = CONFIG[name] ?? DEFAULT;
   if (!cfg.skip) {
     const fit = cfg.widths.filter((x) => x <= w);
     const widths = fit.length ? fit : [w];          // 요청한 폭이 모두 원본보다 크면 원본 폭 하나
     for (const width of widths) await write(sharp(`${SRC}/${file}`).rotate(), name, width, cfg.quality);
-    manifest[name] = { width: w, height: h, widths };
+    manifest[name] = { width: w, height: h, widths, v };
   }
 
   for (const d of DERIVED.filter((x) => x.from === name)) {
@@ -53,7 +57,7 @@ for (const file of readdirSync(SRC).filter((f) => /\.(jpe?g|png)$/i.test(f))) {
     const region = { left: Math.round((w - cw) / 2), top: Math.round((h - ch) / 2), width: cw, height: ch };
     const all = d.widths.filter((x) => x <= cw);
     for (const width of all) await write(sharp(`${SRC}/${file}`).rotate().extract(region), d.name, width, d.quality);
-    manifest[d.name] = { width: cw, height: ch, widths: all };
+    manifest[d.name] = { width: cw, height: ch, widths: all, v };
   }
 }
 
