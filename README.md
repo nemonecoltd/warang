@@ -5,7 +5,7 @@
 - "와랑에서 발견한 것들"(`/story`)만 맛매치(AIM) Special의 새 글을 가져와 보여 준다(`src/lib/aim.ts`, 5분 단위 재검증).
 
 ## 환경값 (`.env.example` 참고)
-`AIM_API_BASE`, `WARANG_SPECIAL_ID`(없으면 샘플 모드), `NEXT_PUBLIC_SAMPLE`(비공개 단계만), `NEXT_PUBLIC_INDEXABLE`(공개 전환 때만 1).
+`AIM_API_BASE`, `WARANG_SPECIAL_ID`(없으면 샘플 모드), `NEXT_PUBLIC_SAMPLE`(비공개 단계만), `NEXT_PUBLIC_INDEXABLE`(기본 공개, 0이면 비공개 점검).
 
 ## 이미지
 원본은 `public/images/src/{hero,future,jeju,life,plant,architecture,story,warang-story}.jpg`. **같은 이름으로 덮어쓰면 끝**이고,
@@ -22,5 +22,5 @@ npm run build    # 로컬에서 빌드 → standalone 결과를 서버에 rsync 
 ## 배포 (msm VM, `warang_frontend`, 포트 3010)
 `./deploy.sh` 만 쓴다(로컬 빌드 → standalone rsync → PM2). `DRY_RUN=1 ./deploy.sh`는 삭제 대상만 보여 준다. 서버에서 빌드하지 않는다.
 AIM Special 번호(현재 9): `.env.local`의 `WARANG_SPECIAL_ID`(없으면 환경변수)를 deploy.sh가 읽어 빌드와 서버 프로세스에 모두 넣는다. nginx 설정 예시는 `infra/nginx-warang.conf`(SSL은 certbot).
-공개 전환(색인 허용)은 `NEXT_PUBLIC_INDEXABLE=1 ./deploy.sh` 로 재배포하고, 맛매치 `serviceHome.ts`에 와랑 Special을 같은 날 추가한다.
+2026-11-21 공개 전환 완료(검색 허용이 기본, 점검용 비공개 빌드만 `NEXT_PUBLIC_INDEXABLE=0 ./deploy.sh`). 맛매치 `serviceHome.ts`에는 Special 9가 와랑 소유로 등록한다.
 공개 전환 체크리스트는 작업 지시서(WARANG_TASK_v2)를 따른다.

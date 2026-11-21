@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: "WARANG STUDIO — 제주 서쪽, 바람이 머무는 공간",
   description:
     "제주 서쪽에서 시작된 공간과 삶의 이야기. 건축, 식물, 일상 그리고 아직 실현되지 않은 프로젝트를 꿈꾸는 곳. A NEMONE PROJECT.",
-  // 비공개 배포 단계: 공개 전까지 색인하지 않는다(공개 전환: NEXT_PUBLIC_INDEXABLE=1 로 빌드)
+  // 공개 상태(기본). 비공개 점검 빌드만 NEXT_PUBLIC_INDEXABLE=0 으로 색인을 막는다
   robots: INDEXABLE ? { index: true, follow: true } : { index: false, follow: false },
   applicationName: "WARANG STUDIO",
   openGraph: { ...OG_BASE, url: SITE_URL },
