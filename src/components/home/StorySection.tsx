@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useRef, useState } from "react";
+import { imageProps } from "@/lib/images";
 import { ArrowRight } from "../icons";
 
 export type Slide = { src: string; alt: string; href?: string };
@@ -40,7 +41,7 @@ export default function StorySection({ slides }: { slides: Slide[] }) {
             {slides.map((s, i) => {
               const img = (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={s.src} alt={s.alt} draggable={false} loading={i === 0 ? "eager" : "lazy"} className="h-full w-full object-cover" />
+                <img {...imageProps(s.src, "(min-width:1024px) 60vw, 92vw")} alt={s.alt} draggable={false} loading={i === 0 ? "eager" : "lazy"} decoding="async" className="h-full w-full object-cover" />
               );
               return (
                 <div key={s.src + i} role="group" aria-roledescription="slide" aria-label={`${i + 1} / ${count}`} aria-hidden={i !== index}
@@ -53,8 +54,8 @@ export default function StorySection({ slides }: { slides: Slide[] }) {
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/50 to-transparent" />
           <div className="absolute bottom-5 right-[calc(8%+1.5rem)] flex items-center gap-4 text-white [text-shadow:0_1px_6px_rgba(0,0,0,0.5)] md:right-[calc(8%+2rem)]">
             <span className="font-display text-sm tracking-widest" aria-live="polite">{index + 1} / {count}</span>
-            <button type="button" aria-label="이전 슬라이드" disabled={index === 0} onClick={() => go(index - 1)} className="rotate-180 transition-opacity hover:opacity-70 disabled:opacity-30"><ArrowRight className="h-5 w-5" /></button>
-            <button type="button" aria-label="다음 슬라이드" disabled={index === count - 1} onClick={() => go(index + 1)} className="transition-opacity hover:opacity-70 disabled:opacity-30"><ArrowRight className="h-5 w-5" /></button>
+            <button type="button" aria-label="이전 슬라이드" disabled={index === 0} onClick={() => go(index - 1)} className="-m-2 rotate-180 p-2 transition-opacity hover:opacity-70 disabled:opacity-30"><ArrowRight className="h-5 w-5" /></button>
+            <button type="button" aria-label="다음 슬라이드" disabled={index === count - 1} onClick={() => go(index + 1)} className="-m-2 p-2 transition-opacity hover:opacity-70 disabled:opacity-30"><ArrowRight className="h-5 w-5" /></button>
           </div>
         </div>
       </div>

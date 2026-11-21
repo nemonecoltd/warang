@@ -42,3 +42,6 @@ next-env.d.ts
 
 # 예시 환경값은 커밋한다
 !.env.example
+
+# 자동 생성 이미지(npm run images)
+/public/images/gen/

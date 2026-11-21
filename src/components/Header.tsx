@@ -71,15 +71,16 @@ export default function Header() {
     <>
     <header className={`fixed inset-x-0 top-0 z-40 transition-colors duration-300 ${bg} ${tone}`}>
       <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-6 md:h-20 md:px-12">
-        <Link href="/" className="font-display leading-[1.05] tracking-[0.18em]" aria-label="WARANG STUDIO 홈">
+        <Link href="/" className="font-display leading-[1.05] tracking-[0.18em]">
           <span className="block text-[17px] md:text-xl">WARANG</span>
           <span className="block pl-[0.9em] text-[11px] md:text-[13px]">STUDIO</span>
+          <span className="sr-only"> 홈</span>
         </Link>
 
         <div className="flex items-center gap-4 lg:gap-12">
           <nav className="hidden items-center gap-7 lg:flex" aria-label="주 메뉴">
             {NAV.map((n) => (
-              <SmartLink key={n.label} href={n.href} external={n.external}
+              <SmartLink key={n.label} href={n.href} external={n.external} current={!n.external && pathname === n.href}
                 className={`font-display text-[13px] tracking-[0.16em] transition-opacity hover:opacity-60 ${pathname === n.href ? "underline underline-offset-8" : ""}`}>
                 {n.label}
               </SmartLink>

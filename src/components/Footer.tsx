@@ -1,4 +1,5 @@
 import { SNS } from "@/content/links";
+import { imageProps } from "@/lib/images";
 import ScrollTop from "./ScrollTop";
 import { BlogIcon, FacebookIcon, InstagramIcon, YoutubeIcon } from "./icons";
 
@@ -14,7 +15,7 @@ export default function Footer() {
     <footer className="relative isolate overflow-hidden bg-forest text-white">
       {/* 푸터 배경(어두운 식물 이미지 + 오버레이). 실사진은 public/images/future.jpg 를 덮어쓴다 */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/images/future.jpg" alt="" loading="lazy" className="absolute inset-0 -z-20 h-full w-full object-cover object-[50%_40%]" />
+      <img {...imageProps("/images/future.jpg", "100vw")} alt="" loading="lazy" decoding="async" className="absolute inset-0 -z-20 h-full w-full object-cover object-[50%_40%]" />
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-forest/55 via-forest/55 to-forest/88" />
 
       <div className="mx-auto flex min-h-[420px] max-w-[1440px] flex-col justify-between px-6 pb-10 pt-20 md:min-h-[480px] md:px-12">

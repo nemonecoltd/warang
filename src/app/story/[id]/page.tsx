@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SNS } from "@/content/links";
-import { SITE_URL } from "@/lib/site";
+import { OG_BASE, RSS_TYPES, SITE_URL } from "@/lib/site";
 import { formatDate, getPost, getPosts, sanitizeHtml } from "@/lib/aim";
 import { ArrowRight } from "@/components/icons";
+import { imageProps, largestSrc } from "@/lib/images";
 
 type Props = { params: Promise<{ id: string }> };
 
@@ -23,8 +24,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${post.title} — WARANG STUDIO`,
     description: post.excerpt,
-    alternates: { canonical },
-    openGraph: { type: "article", title: post.title, description: post.excerpt, url: canonical, images: post.image_url ? [{ url: post.image_url, alt: post.title }] : undefined },
+    alternates: { canonical, types: RSS_TYPES },
+    openGraph: { ...OG_BASE, type: "article", title: post.title, description: post.excerpt, url: canonical, images: post.image_url ? [{ url: largestSrc(post.image_url), alt: post.title }] : undefined },
   };
 }
 
@@ -53,7 +54,7 @@ export default async function StoryPostPage({ params }: Props) {
       <h1 className="mt-3 font-headline text-3xl leading-snug md:text-[2.6rem] md:leading-[1.3]">{post.title}</h1>
       {post.image_url && (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={post.image_url} alt={post.title} className="mt-10 h-auto w-full" />
+        <img {...imageProps(post.image_url, "(min-width:768px) 768px, 100vw")} alt={post.title} className="mt-10 h-auto w-full" decoding="async" />
       )}
       <div className="warang-prose mt-12" dangerouslySetInnerHTML={{ __html: sanitizeHtml(post.body_html ?? "") }} />
 

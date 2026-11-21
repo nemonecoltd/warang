@@ -2,12 +2,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { SNS } from "@/content/links";
 import { formatDate, getPosts } from "@/lib/aim";
+import { OG_BASE, RSS_TYPES } from "@/lib/site";
+import { imageProps } from "@/lib/images";
 import { ArrowRight } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "와랑에서 발견한 것들 — WARANG STORY",
   description: "와랑스튜디오에서 느꼈던 것들, 행동했던 것들, 그리고 변화된 이야기들. 제주의 공간·식물·일상에 관한 기록.",
-  alternates: { canonical: "/story" },
+  alternates: { canonical: "/story", types: RSS_TYPES },
+  openGraph: { ...OG_BASE, title: "와랑에서 발견한 것들 — WARANG STORY", description: "와랑스튜디오에서 느꼈던 것들, 행동했던 것들, 그리고 변화된 이야기들.", url: "/story" },
 };
 
 const INTRO =
@@ -40,7 +43,7 @@ export default async function StoryPage() {
                 <div className="aspect-[4/3] overflow-hidden bg-line">
                   {p.image_url && (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={p.image_url} alt="" loading="lazy" className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]" />
+                    <img {...imageProps(p.image_url, "(min-width:1024px) 30vw, (min-width:640px) 45vw, 92vw")} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]" />
                   )}
                 </div>
                 <p className="mt-5 font-display text-xs tracking-[0.15em] text-mute">{formatDate(p.created_at)}</p>

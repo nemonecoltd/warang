@@ -1,7 +1,14 @@
 import Hero from "@/components/home/Hero";
 import CategoryCards from "@/components/home/CategoryCards";
 import StorySection, { type Slide } from "@/components/home/StorySection";
+import type { Metadata } from "next";
 import { getPosts } from "@/lib/aim";
+import { OG_BASE, RSS_TYPES, SITE_URL } from "@/lib/site";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/", types: RSS_TYPES },
+  openGraph: { ...OG_BASE, url: SITE_URL },
+};
 
 // "와랑에서 발견한 것들" 최신 글 3개. 글이 없으면 대표 이미지 1장(→ /story)만 보여 준다.
 export default async function Home() {

@@ -1,0 +1,67 @@
+{
+  "architecture": {
+    "width": 179,
+    "height": 102,
+    "widths": [
+      179
+    ]
+  },
+  "future": {
+    "width": 1440,
+    "height": 1080,
+    "widths": [
+      640,
+      1024,
+      1440
+    ]
+  },
+  "hero": {
+    "width": 2400,
+    "height": 1350,
+    "widths": [
+      480,
+      800,
+      1024,
+      1600,
+      2400
+    ]
+  },
+  "jeju": {
+    "width": 175,
+    "height": 102,
+    "widths": [
+      175
+    ]
+  },
+  "life": {
+    "width": 159,
+    "height": 102,
+    "widths": [
+      159
+    ]
+  },
+  "plant": {
+    "width": 139,
+    "height": 102,
+    "widths": [
+      139
+    ]
+  },
+  "story": {
+    "width": 142,
+    "height": 102,
+    "widths": [
+      142
+    ]
+  },
+  "warang-story": {
+    "width": 713,
+    "height": 283,
+    "widths": [
+      320,
+      480,
+      640,
+      713
+    ]
+  }
+}

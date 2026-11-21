@@ -7,3 +7,7 @@ export const AIM_SITE = "https://nemoneai.com";
 export const SPECIAL_ID = Number(process.env.WARANG_SPECIAL_ID) || null;
 // 비공개 단계에서만 1 — Special이 비어 있을 때 레이아웃 확인용 샘플 글을 보여 준다(공개 전환 때 제거)
 export const SAMPLE = process.env.NEXT_PUBLIC_SAMPLE === "1";
+
+// 페이지별 metadata는 layout의 alternates/openGraph를 통째로 덮어쓰므로 공통 값을 여기서 가져다 쓴다
+export const RSS_TYPES = { "application/rss+xml": "/rss.xml" };
+export const OG_BASE = { type: "website" as const, siteName: "WARANG STUDIO", locale: "ko_KR" };
