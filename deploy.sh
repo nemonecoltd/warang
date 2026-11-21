@@ -13,6 +13,13 @@ REMOTE_DIR="/home/ubuntu/apps/warang_frontend"
 PORT=3010
 SSH="ssh -i $SSH_KEY"
 
+# AIM Special 번호: 환경변수가 없으면 .env.local 의 값을 쓴다(빌드와 서버 프로세스 양쪽에 같은 값이 들어가야 한다)
+if [ -z "${WARANG_SPECIAL_ID:-}" ] && [ -f .env.local ]; then
+  WARANG_SPECIAL_ID="$(grep -E '^WARANG_SPECIAL_ID=' .env.local | tail -1 | cut -d= -f2 | tr -d '[:space:]')"
+fi
+export WARANG_SPECIAL_ID="${WARANG_SPECIAL_ID:-}"
+echo "▶ WARANG_SPECIAL_ID=${WARANG_SPECIAL_ID:-(없음 — 샘플 모드)}"
+
 echo "▶ 빌드(이미지 변환 포함)"
 npm run build
 
