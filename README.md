@@ -19,4 +19,8 @@ npm run dev      # http://localhost:3000
 npm run build    # 로컬에서 빌드 → standalone 결과를 서버에 rsync (서버에서 빌드하지 않는다)
 # 운영 실행은 `next start`가 아니라 `node .next/standalone/server.js` (PORT, HOSTNAME 지정)
 ```
-배포 절차와 공개 전환 체크리스트는 작업 지시서(WARANG_TASK_v2)를 따른다.
+## 배포 (msm VM, `warang_frontend`, 포트 3010)
+`./deploy.sh` 만 쓴다(로컬 빌드 → standalone rsync → PM2). `DRY_RUN=1 ./deploy.sh`는 삭제 대상만 보여 준다. 서버에서 빌드하지 않는다.
+AIM Special 번호 반영: `WARANG_SPECIAL_ID=번호 ./deploy.sh`. nginx 설정 예시는 `infra/nginx-warang.conf`(SSL은 certbot).
+공개 전환(색인 허용)은 `NEXT_PUBLIC_INDEXABLE=1 ./deploy.sh` 로 재배포하고, 맛매치 `serviceHome.ts`에 와랑 Special을 같은 날 추가한다.
+공개 전환 체크리스트는 작업 지시서(WARANG_TASK_v2)를 따른다.
