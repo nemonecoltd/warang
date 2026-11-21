@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+/* 와랑스튜디오 디자인 토큰 */
+:root {
+  --paper: #f2efea;      /* 배경(오프화이트) */
+  --ink: #2a2a27;        /* 텍스트 */
+  --mute: #6b6a64;       /* 보조 텍스트 */
+  --forest: #1e2620;     /* 다크 그린(푸터/오버레이) */
+  --line: #dedad2;       /* 구분선 */
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-mute: var(--mute);
+  --color-forest: var(--forest);
+  --color-line: var(--line);
+  --font-display: "Cormorant Garamond", "Times New Roman", serif;            /* 로고, 메뉴, 영문 슬로건 */
+  --font-headline: "Noto Serif KR", "Apple SD Gothic Neo", serif;            /* 국문 헤드라인 */
+  --font-body: "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", system-ui, sans-serif; /* 국문 본문 */
+}
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+  scroll-behavior: smooth;
+}
+body {
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+/* 모서리 라운드·그림자 없음이 기본 — 원형 버튼만 예외로 rounded-full 사용 */
+img { display: block; max-width: 100%; }
+:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
+
+/* 글 본문(AIM에서 가져온 HTML) 타이포그래피 */
+.warang-prose { font-size: 1rem; line-height: 2; color: rgba(42, 42, 39, 0.9); word-break: keep-all; overflow-wrap: break-word; }
+.warang-prose p { margin: 0 0 1.6em; }
+.warang-prose h2 { margin: 3em 0 1em; font-family: var(--font-headline); font-size: 1.5rem; line-height: 1.5; }
+.warang-prose h3 { margin: 2.4em 0 0.8em; font-family: var(--font-headline); font-size: 1.2rem; line-height: 1.5; }
+.warang-prose img { height: auto; width: 100%; margin: 2.4em 0; }
+.warang-prose hr { margin: 3em 0; border: 0; border-top: 1px solid var(--line); }
+.warang-prose blockquote { margin: 2em 0; border-left: 2px solid var(--line); padding-left: 1.4em; color: var(--mute); }
+.warang-prose ul, .warang-prose ol { margin: 0 0 1.6em 1.4em; }
+.warang-prose ul { list-style: disc; }
+.warang-prose ol { list-style: decimal; }
+.warang-prose a { text-decoration: underline; text-underline-offset: 4px; }
