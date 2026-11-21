@@ -11,9 +11,9 @@ export default function Hero() {
       </picture>
       {/* 위쪽(헤더)과 왼쪽(문구) 가독성을 위한 옅은 그라데이션 */}
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/30 via-transparent to-black/15" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/35 via-black/5 to-transparent" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/45 via-black/15 to-transparent" />
 
-      <div className="mx-auto w-full max-w-[1440px] px-6 md:px-12">
+      <div className="mx-auto w-full max-w-[1440px] px-6 [text-shadow:0_1px_14px_rgba(0,0,0,0.35)] md:px-12">
         <h1 className="font-headline text-[clamp(1.9rem,3.8vw,3.4rem)] leading-[1.35] tracking-[-0.01em]">
           제주 서쪽,<br />바람이 머무는 공간.
         </h1>

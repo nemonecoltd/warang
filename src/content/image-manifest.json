@@ -19,21 +19,20 @@
     ]
   },
   "hero-m": {
-    "width": 1283,
-    "height": 1350,
+    "width": 894,
+    "height": 941,
     "widths": [
       390,
       780
     ]
   },
   "hero-w": {
-    "width": 2400,
-    "height": 1000,
+    "width": 1672,
+    "height": 941,
     "widths": [
       800,
       1280,
-      1600,
-      1920
+      1600
     ]
   },
   "jeju": {
