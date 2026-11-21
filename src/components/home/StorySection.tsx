@@ -18,7 +18,8 @@ export default function StorySection({ slides }: { slides: Slide[] }) {
     <section aria-label="WARANG STORY" className="bg-paper">
       <div className="mx-auto grid max-w-[1440px] items-stretch gap-10 py-14 md:py-20 lg:grid-cols-[minmax(280px,30%)_1fr] lg:gap-0">
         <div className="flex flex-col justify-center px-6 md:px-12">
-          <p className="font-display text-sm leading-[1.5] tracking-[0.2em]">WARANG<br />STORY</p>
+          <p className="font-display text-xs tracking-[0.1em] text-mute">05</p>
+          <p className="mt-2 font-display text-sm leading-[1.5] tracking-[0.2em]">WARANG<br />STORY</p>
           <h2 className="mt-6 font-headline text-2xl leading-snug md:text-[1.7rem]">와랑에서 발견한 것들</h2>
           <p className="mt-6 text-[15px] leading-8 text-ink/85">
             이곳에서 느꼈던 것들,<br />행동했던 것들,<br />그리고 변화된 이야기들.

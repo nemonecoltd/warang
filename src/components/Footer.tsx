@@ -29,10 +29,6 @@ export default function Footer() {
           <div className="space-y-2 font-display tracking-[0.16em]">
             <p className="text-sm">WARANG STUDIO</p>
             <p className="text-xs text-white/80">JEJU · NEMONE</p>
-            <a href={SNS.nemone} target="_blank" rel="noopener noreferrer" className="inline-block text-[11px] text-white/70 underline-offset-4 hover:underline">
-              A NEMONE PROJECT →
-            </a>
-            <a href="mailto:contact@nemoneai.com" className="block text-[11px] text-white/70 underline-offset-4 hover:underline">contact@nemoneai.com</a>
           </div>
           <div className="flex flex-col gap-4 md:items-end">
             <div className="flex items-center gap-5">
@@ -40,11 +36,10 @@ export default function Footer() {
                 <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="transition-opacity hover:opacity-60"><Icon /></a>
               ))}
             </div>
-            <a href={SNS.naverMap} target="_blank" rel="noopener noreferrer" className="text-xs text-white/80 underline-offset-4 hover:underline">
-              오시는 길 → 네이버 지도
-            </a>
+            <a href="mailto:contact@nemoneai.com" className="text-xs text-white/80 underline-offset-4 hover:underline">contact@nemoneai.com</a>
           </div>
         </div>
+        <p className="mt-10 text-center text-[11px] text-white/70">© 2026 네모네 주식회사. All rights reserved</p>
       </div>
     </footer>
   );

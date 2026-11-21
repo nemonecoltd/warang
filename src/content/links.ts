@@ -8,8 +8,8 @@ export const SNS = {
   nemone: "https://nemoneai.com",
   architectureStory: "https://nemoneai.com/special/1",
   plants: "https://plants.nemoneai.com",
-  // 네이버 지도의 와랑스튜디오 장소 주소로 교체 예정(전달 전 임시값은 검색 링크)
-  naverMap: "https://map.naver.com/p/search/%EC%99%80%EB%9E%91%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4",
+  // 네이버 지도의 와랑스튜디오 장소(제주 제주시 한경면 낙조길 196-18)
+  naverMap: "https://map.naver.com/p/entry/place/2065456826",
 } as const;
 
 export type NavItem = { label: string; href: string; external: boolean };
@@ -26,11 +26,10 @@ export const NAV: NavItem[] = [
 
 export type Card = { no: string; title: string; desc: string; href: string; image: string };
 
-// 히어로 아래 5개 카드(02 LIFE는 인스타그램, 05는 STORY가 아니라 네이버 지도)
+// 히어로 아래 4개 카드(02 LIFE는 인스타그램). 05는 WARANG STORY 섹션의 번호이고, 지도는 별도 가로 배너다.
 export const CARDS: Card[] = [
   { no: "01", title: "JEJU", desc: "제주라는 장소와 계절", href: SNS.blog, image: "/images/jeju.jpg" },
   { no: "02", title: "LIFE", desc: "일상과 취향의 기록", href: SNS.instagram, image: "/images/life.jpg" },
   { no: "03", title: "PLANT", desc: "식물과 함께하는 생활", href: SNS.plants, image: "/images/plant.jpg" },
   { no: "04", title: "ARCHITECTURE", desc: "공간을 만들고 살아가는 이야기", href: SNS.architectureStory, image: "/images/architecture.jpg" },
-  { no: "05", title: "MAP", desc: "와랑스튜디오 오시는 길", href: SNS.naverMap, image: "/images/story.jpg" },
 ];

@@ -86,13 +86,6 @@ export default function Header() {
               </SmartLink>
             ))}
           </nav>
-          <div className="hidden items-center gap-4 lg:flex">
-            {SNS_ICONS.map(({ href, label, Icon }) => (
-              <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="transition-opacity hover:opacity-60">
-                <Icon />
-              </a>
-            ))}
-          </div>
           <button ref={buttonRef} type="button" className="-mr-2 flex h-10 w-10 items-center justify-center lg:hidden"
             aria-expanded={open} aria-controls="mobile-menu" aria-label={open ? "메뉴 닫기" : "메뉴 열기"} onClick={() => setOpen((v) => !v)}>
             <span className="relative block h-3 w-6">

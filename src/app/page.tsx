@@ -1,6 +1,7 @@
 import Hero from "@/components/home/Hero";
 import CategoryCards from "@/components/home/CategoryCards";
 import StorySection, { type Slide } from "@/components/home/StorySection";
+import MapBanner from "@/components/home/MapBanner";
 import type { Metadata } from "next";
 import { getPosts } from "@/lib/aim";
 import { OG_BASE, RSS_TYPES, SITE_URL } from "@/lib/site";
@@ -21,6 +22,7 @@ export default async function Home() {
       <Hero />
       <CategoryCards />
       <StorySection slides={slides} />
+      <MapBanner />
     </>
   );
 }

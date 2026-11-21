@@ -6,7 +6,7 @@ import { parse } from "node:path";
 
 const SRC = "public/images/src";
 const OUT = "public/images/gen";
-const WIDTHS = { hero: [480, 800, 1024, 1600, 2400], future: [640, 1024, 1440] };
+const WIDTHS = { hero: [480, 800, 1024, 1600, 2400], future: [640, 1024, 1440], map: [640, 1024, 1600, 2400] };
 const DEFAULT_WIDTHS = [320, 480, 640, 960, 1400];
 mkdirSync(OUT, { recursive: true });
 
