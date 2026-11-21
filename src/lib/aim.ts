@@ -1,5 +1,6 @@
 import { cacheLife, cacheTag } from "next/cache";
 import { SAMPLE_POSTS } from "@/content/samples";
+import { imageSize } from "./imageSize";
 import { AIM_API, SAMPLE, SPECIAL_ID } from "./site";
 
 export type Post = {
@@ -42,20 +43,56 @@ export async function getPosts(): Promise<Post[]> {
   }
 }
 
-// 글 상세. 와랑 Special에 속한 글만 보여 준다(새로 쓴 글만 다루는 규칙) — 목록에 없는 번호는 null → 404.
+// AIM 원본 글. 와랑 Special에 속한 글만 가져온다(새로 쓴 글만 다루는 규칙) — 목록에 없는 번호는 null → 404.
+async function fetchRawPost(id: number): Promise<RawPost | null> {
+  "use cache";
+  cacheLife({ stale: 300, revalidate: 300, expire: 3600 });
+  cacheTag("aim-special");
+  if (!(await getPosts()).some((p) => p.id === id)) return null;
+  try {
+    const res = await fetch(`${AIM_API}/posts/${id}`);
+    if (!res.ok) return null;
+    return (await res.json()) as RawPost;
+  } catch {
+    return null;
+  }
+}
+
+// 본문에 base64로 박힌 이미지(스마트에디터가 붙여 넣은 사진)는 HTML을 수백 KB로 부풀리고 목록·홈의 미리 가져오기에도 딸려 온다.
+// 그래서 /story-media/{글}/{번호} 주소로 분리하고(브라우저가 따로·늦게·캐시해서 받는다), 크기를 읽어 width/height를 넣는다.
+type InlineImage = { mime: string; data: string };
+const DATA_IMG = /<img\b([^>]*?)\ssrc\s*=\s*(["'])data:(image\/[a-z0-9.+-]+);base64,([A-Za-z0-9+/=\s]+?)\2([^>]*)>/gi;
+
+function splitInlineImages(id: number, html: string): { html: string; images: InlineImage[] } {
+  const images: InlineImage[] = [];
+  const out = html.replace(DATA_IMG, (_m, pre: string, _q: string, mime: string, data: string, post: string) => {
+    const n = images.length;
+    const clean = data.replace(/\s+/g, "");
+    images.push({ mime, data: clean });
+    const dim = imageSize(Buffer.from(clean.slice(0, 40000), "base64"));
+    return `<img${pre} src="/story-media/${id}/${n}"${dim ? ` width="${dim.width}" height="${dim.height}"` : ""}${post}>`;
+  });
+  return { html: out, images };
+}
+
+// 글 상세(본문의 base64 이미지는 분리된 상태).
 export async function getPost(id: number): Promise<Post | null> {
   "use cache";
   cacheLife({ stale: 300, revalidate: 300, expire: 3600 });
   cacheTag("aim-special");
   if (!SPECIAL_ID) return SAMPLE ? SAMPLE_POSTS.find((p) => p.id === id) ?? null : null;
-  if (!(await getPosts()).some((p) => p.id === id)) return null;
-  try {
-    const res = await fetch(`${AIM_API}/posts/${id}`);
-    if (!res.ok) return null;
-    return toPost((await res.json()) as RawPost, true);
-  } catch {
-    return null;
-  }
+  const raw = await fetchRawPost(id);
+  if (!raw) return null;
+  return { ...toPost(raw, false), body_html: splitInlineImages(id, raw.body_text ?? "").html };
+}
+
+// 분리한 본문 이미지 한 장(/story-media/{글}/{번호}용).
+export async function getInlineImage(id: number, n: number): Promise<InlineImage | null> {
+  "use cache";
+  cacheLife({ stale: 300, revalidate: 300, expire: 3600 });
+  cacheTag("aim-special");
+  const raw = await fetchRawPost(id);
+  return raw ? splitInlineImages(id, raw.body_text ?? "").images[n] ?? null : null;
 }
 
 // 본문 HTML 정리 — 우리 관리자(AIM)가 쓴 글이지만 스크립트·이벤트 속성·iframe은 제거한다.
@@ -65,7 +102,8 @@ export function sanitizeHtml(html: string): string {
     .replace(/<(script|style|iframe|object|embed)[\s\S]*?<\/\1>/gi, "")
     .replace(/<(script|style|iframe|object|embed)[^>]*\/?>/gi, "")
     .replace(/\son\w+\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, "")
-    .replace(/(href|src)\s*=\s*("|')\s*javascript:[^"']*\2/gi, "$1=$2#$2");
+    .replace(/(href|src)\s*=\s*("|')\s*javascript:[^"']*\2/gi, "$1=$2#$2")
+    .replace(/<img\b(?![^>]*\bloading\s*=)/gi, '<img loading="lazy" decoding="async"');   // 본문 이미지는 모두 지연 로딩
 }
 
 export const formatDate = (iso: string | null) => (iso ? iso.slice(0, 10).replaceAll("-", ".") : "");

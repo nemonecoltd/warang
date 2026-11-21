@@ -42,7 +42,7 @@ export default function StorySection({ slides }: { slides: Slide[] }) {
             {slides.map((s, i) => {
               const img = (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img {...imageProps(s.src, "(min-width:1024px) 60vw, 92vw")} alt={s.alt} draggable={false} loading={i === 0 ? "eager" : "lazy"} decoding="async" className="h-full w-full object-cover" />
+                <img {...imageProps(s.src, "(min-width:1024px) 60vw, 92vw")} alt={s.alt} draggable={false} loading="lazy" decoding="async" className="h-full w-full object-cover" />
               );
               return (
                 <div key={s.src + i} role="group" aria-roledescription="slide" aria-label={`${i + 1} / ${count}`} aria-hidden={i !== index}

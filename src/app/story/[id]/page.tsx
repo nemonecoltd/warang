@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "../../pretendard-bold.css";   // 본문의 굵은 글씨용 Bold 조각은 글 상세에서만
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SNS } from "@/content/links";

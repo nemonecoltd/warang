@@ -19,6 +19,12 @@ export function imageProps(src: string, sizes: string) {
   };
 }
 
+// <picture><source>용: 이름과 sizes만으로 srcSet을 만든다(매니페스트에 없으면 null)
+export function imageSet(name: string, sizes: string) {
+  const entry = (manifest as Record<string, Entry>)[name];
+  return entry ? { srcSet: entry.widths.map((w) => `/images/gen/${name}-${w}.webp ${w}w`).join(", "), sizes } : null;
+}
+
 // OG 등 단일 주소가 필요할 때(가장 큰 변환본)
 export function largestSrc(src: string): string {
   const m = /^\/images\/([a-z0-9-]+)\.(?:jpe?g|png|webp)$/i.exec(src);

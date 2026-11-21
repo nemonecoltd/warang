@@ -28,7 +28,10 @@ export default function Footer() {
         <div className="mt-16 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <div className="space-y-2 font-display tracking-[0.16em]">
             <p className="text-sm">WARANG STUDIO</p>
-            <p className="text-xs text-white/80">JEJU · NEMONE</p>
+            <p className="flex gap-3 text-xs text-white/80">
+              <a href={SNS.home} target="_blank" rel="noopener noreferrer" className="underline-offset-4 transition-opacity hover:underline hover:opacity-100">ABOUT<span className="sr-only"> (네모네 주식회사 홈페이지, 새 탭에서 열림)</span></a>
+              <a href={SNS.nemone} target="_blank" rel="noopener noreferrer" className="underline-offset-4 transition-opacity hover:underline hover:opacity-100">NEMONE<span className="sr-only"> (네모네 포털, 새 탭에서 열림)</span></a>
+            </p>
           </div>
           <div className="flex flex-col gap-4 md:items-end">
             <div className="flex items-center gap-5">

@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Suspense } from "react";
 import "@fontsource/cormorant-garamond/latin-400.css";
 import "@fontsource/noto-serif-kr/400.css";
-import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
+import "./pretendard.css";   // Pretendard 정적 Regular 조각(가변 폰트보다 약 60% 가벼움)
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   // 공개 상태(기본). 비공개 점검 빌드만 NEXT_PUBLIC_INDEXABLE=0 으로 색인을 막는다
   robots: INDEXABLE ? { index: true, follow: true } : { index: false, follow: false },
   applicationName: "WARANG STUDIO",
+  verification: { google: "eHAc5WBdeiR9-l5T2HvCw1v4XTdjKghnA3JCCSz-YAk", other: { "naver-site-verification": "4d94543330b6f1e9ab93f29f5816f2a3de181585" } },
   openGraph: { ...OG_BASE, url: SITE_URL },
   twitter: { card: "summary_large_image" },
   alternates: { types: RSS_TYPES },

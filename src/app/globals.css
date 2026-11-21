@@ -17,7 +17,7 @@
   --color-line: var(--line);
   --font-display: "Cormorant Garamond", "Times New Roman", serif;            /* 로고, 메뉴, 영문 슬로건 */
   --font-headline: "Noto Serif KR", "Apple SD Gothic Neo", serif;            /* 국문 헤드라인 */
-  --font-body: "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", system-ui, sans-serif; /* 국문 본문 */
+  --font-body: "Pretendard", "Apple SD Gothic Neo", system-ui, sans-serif; /* 국문 본문 */
 }
 
 html {

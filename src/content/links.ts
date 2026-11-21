@@ -5,7 +5,8 @@ export const SNS = {
   instagram: "https://www.instagram.com/warangstudio.jeju/",
   facebook:
     "https://www.facebook.com/p/%EC%99%80%EB%9E%91%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4-61582407354119/",
-  nemone: "https://nemoneai.com",
+  nemone: "https://nemoneai.com",                 // 네모네 포털
+  home: "https://home.nemoneai.com",               // 네모네 주식회사 홈페이지(회사 소개)
   architectureStory: "https://nemoneai.com/special/1",
   plants: "https://plants.nemoneai.com",
   // 네이버 지도의 와랑스튜디오 장소(제주 제주시 한경면 낙조길 196-18)
