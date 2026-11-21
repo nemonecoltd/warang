@@ -25,22 +25,20 @@ export default function Footer() {
           <div className="mt-6"><ScrollTop /></div>
         </div>
 
-        <div className="mt-16 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-          <div className="space-y-2 font-display tracking-[0.16em]">
-            <p className="text-sm">WARANG STUDIO</p>
-            <p className="flex gap-3 text-xs text-white/80">
-              <a href={SNS.home} target="_blank" rel="noopener noreferrer" className="underline-offset-4 transition-opacity hover:underline hover:opacity-100">ABOUT<span className="sr-only"> (네모네 주식회사 홈페이지, 새 탭에서 열림)</span></a>
-              <a href={SNS.nemone} target="_blank" rel="noopener noreferrer" className="underline-offset-4 transition-opacity hover:underline hover:opacity-100">NEMONE<span className="sr-only"> (네모네 포털, 새 탭에서 열림)</span></a>
-            </p>
+        {/* 전 화면 중앙 정렬: SNS 아이콘 → ABOUT | NEMONE | 이메일 */}
+        <div className="mt-16 flex flex-col items-center gap-5">
+          <div className="flex items-center gap-6">
+            {ICONS.map(({ href, label, Icon }) => (
+              <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="transition-opacity hover:opacity-60"><Icon /></a>
+            ))}
           </div>
-          <div className="flex flex-col gap-4 md:items-end">
-            <div className="flex items-center gap-5">
-              {ICONS.map(({ href, label, Icon }) => (
-                <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="transition-opacity hover:opacity-60"><Icon /></a>
-              ))}
-            </div>
-            <a href="mailto:contact@nemoneai.com" className="text-xs text-white/80 underline-offset-4 hover:underline">contact@nemoneai.com</a>
-          </div>
+          <p className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-white/80">
+            <a href={SNS.home} target="_blank" rel="noopener noreferrer" className="font-display tracking-[0.16em] underline-offset-4 hover:underline">ABOUT<span className="sr-only"> (네모네 주식회사 홈페이지, 새 탭에서 열림)</span></a>
+            <span aria-hidden="true" className="text-white/40">|</span>
+            <a href={SNS.nemone} target="_blank" rel="noopener noreferrer" className="font-display tracking-[0.16em] underline-offset-4 hover:underline">NEMONE<span className="sr-only"> (네모네 포털, 새 탭에서 열림)</span></a>
+            <span aria-hidden="true" className="text-white/40">|</span>
+            <a href="mailto:contact@nemoneai.com" className="underline-offset-4 hover:underline">contact@nemoneai.com</a>
+          </p>
         </div>
         <p className="mt-10 text-center text-[11px] text-white/70">© 2026 네모네 주식회사. All rights reserved</p>
       </div>
