@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "../../pretendard-bold.css";   // 본문의 굵은 글씨용 Bold 조각은 글 상세에서만
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { SNS } from "@/content/links";
+import AdSlot from "@/components/AdSlot";
 import { OG_BASE, RSS_TYPES, SITE_URL } from "@/lib/site";
 import { formatDate, getPost, getPosts, sanitizeHtml } from "@/lib/aim";
 import { ArrowRight } from "@/components/icons";
@@ -59,11 +59,7 @@ export default async function StoryPostPage({ params }: Props) {
       )}
       <div className="warang-prose mt-12" dangerouslySetInnerHTML={{ __html: sanitizeHtml(post.body_html ?? "") }} />
 
-      <div className="mt-20 flex flex-wrap gap-x-8 gap-y-3 border-t border-line pt-8 text-sm">
-        <a href={SNS.blog} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">네이버 블로그</a>
-        <a href={SNS.instagram} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">인스타그램</a>
-        <a href={SNS.youtube} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">유튜브</a>
-      </div>
+      <AdSlot />
 
       {others.length > 0 && (
         <section className="mt-20" aria-label="다른 글">
