@@ -96,14 +96,23 @@ export async function getInlineImage(id: number, n: number): Promise<InlineImage
 }
 
 // 본문 HTML 정리 — 우리 관리자(AIM)가 쓴 글이지만 스크립트·이벤트 속성·iframe은 제거한다.
-export function sanitizeHtml(html: string): string {
+export function sanitizeHtml(html: string, title = ""): string {
+  let imgNo = 0;
   return html
     .replace(/<!--[\s\S]*?-->/g, "")
     .replace(/<(script|style|iframe|object|embed)[\s\S]*?<\/\1>/gi, "")
     .replace(/<(script|style|iframe|object|embed)[^>]*\/?>/gi, "")
     .replace(/\son\w+\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, "")
     .replace(/(href|src)\s*=\s*("|')\s*javascript:[^"']*\2/gi, "$1=$2#$2")
-    .replace(/<img\b(?![^>]*\bloading\s*=)/gi, '<img loading="lazy" decoding="async"');   // 본문 이미지는 모두 지연 로딩
+    .replace(/<img\b(?![^>]*\bloading\s*=)/gi, '<img loading="lazy" decoding="async"')   // 본문 이미지는 모두 지연 로딩
+    // alt가 아예 없는 본문 이미지(에디터에서 옮겨 온 글)는 검색엔진·접근성 경고(Bing "alt 누락")가 나서 대체 문구를 채운다.
+    // 네이버 지도 이미지는 위치 지도로, 나머지는 글 제목 + 순번(내용을 모르는 사진에 거짓 설명을 쓰지 않는다). 이미 alt가 있으면(빈 값 포함) 그대로 둔다.
+    .replace(/<img\b([^>]*)>/gi, (m, attrs: string) => {
+      if (/\balt\s*=/i.test(attrs)) return m;
+      imgNo += 1;
+      const label = /staticmap|map\.naver|static\.map/i.test(attrs) ? "와랑스튜디오 위치 지도" : `${title ? `${title} ` : ""}사진 ${imgNo}`;
+      return `<img alt="${label.replace(/"/g, "&quot;")}"${attrs}>`;
+    })
 }
 
 export const formatDate = (iso: string | null) => (iso ? iso.slice(0, 10).replaceAll("-", ".") : "");

@@ -57,7 +57,7 @@ export default async function StoryPostPage({ params }: Props) {
         // eslint-disable-next-line @next/next/no-img-element
         <img {...imageProps(post.image_url, "(min-width:768px) 768px, 100vw")} alt={post.title} className="mt-10 h-auto w-full" decoding="async" />
       )}
-      <div className="warang-prose mt-12" dangerouslySetInnerHTML={{ __html: sanitizeHtml(post.body_html ?? "") }} />
+      <div className="warang-prose mt-12" dangerouslySetInnerHTML={{ __html: sanitizeHtml(post.body_html ?? "", post.title) }} />
 
       <AdSlot />
 
